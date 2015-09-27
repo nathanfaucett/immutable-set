@@ -1,0 +1,41 @@
+{
+  "name": "immutable-set",
+  "version": "0.0.1",
+  "description": "immutable persistent set for the browser and node.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nathanfaucett/immutable-set.git"
+  },
+  "main": "src/index.js",
+  "scripts": {
+    "bench": "node bench",
+    "test": "npm run test-node",
+    "test-node": "node ./test | ./node_modules/.bin/tap-spec",
+    "test-node-raw": "node ./test",
+    "test-browser-local": "zuul --local 8080 --ui tape -- ./test"
+  },
+  "keywords": [
+    "immutable-set",
+    "immutable-set.js"
+  ],
+  "author": "Nathan Faucett",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "devDependencies": {
+    "benchmark": "^1.0.0",
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-jsbeautifier": "^0.2.7",
+    "immutable": "^3.7.5",
+    "mori": "^0.3.2",
+    "tap-spec": "^4.0.0",
+    "tape": "^4.0.0",
+    "zuul": "^3.0.0"
+  },
+  "dependencies": {
+    "define_property": "git://github.com/nathanfaucett/define_property.git",
+    "immutable-map": "git://github.com/nathanfaucett/immutable-map.git",
+    "is_array_like": "git://github.com/nathanfaucett/is_array_like.git",
+    "is_undefined": "git://github.com/nathanfaucett/is_undefined.git"
+  }
+}
