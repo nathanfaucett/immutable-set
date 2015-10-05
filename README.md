@@ -3,6 +3,10 @@ immutable Set
 
 immutable persistent set for the browser and node.js
 
+# Install
+```bash
+$ npm install git://github.com/nathanfaucett/immutable-set --save
+```
 
 # Usage
 ```javascript
