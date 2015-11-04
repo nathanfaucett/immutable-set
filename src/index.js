@@ -1,4 +1,5 @@
-var ImmutableMap = require("immutable-map"),
+var freeze = require("freeze"),
+    ImmutableMap = require("immutable-map"),
     isUndefined = require("is_undefined"),
     isArrayLike = require("is_array_like"),
     defineProperty = require("define_property");
@@ -31,7 +32,7 @@ function Set(value) {
     }
 }
 
-Set.EMPTY = EMPTY_SET;
+Set.EMPTY = freeze(EMPTY_SET);
 
 function Set_createSet(_this, value, values) {
     var length = values.length;
@@ -62,7 +63,7 @@ function Set_fromArray(_this, array) {
 
     if (map.size() !== 0) {
         _this.__map = map;
-        return _this;
+        return freeze(_this);
     } else {
         return EMPTY_SET;
     }
@@ -138,7 +139,7 @@ function Set_set(_this, values) {
     if (added !== 0) {
         set = new Set(INTERNAL_CREATE);
         set.__map = map;
-        return set;
+        return freeze(set);
     } else {
         return _this;
     }
@@ -177,7 +178,7 @@ function Set_remove(_this, values) {
     if (removed !== 0) {
         set = new Set(INTERNAL_CREATE);
         set.__map = map;
-        return set;
+        return freeze(set);
     } else {
         return _this;
     }

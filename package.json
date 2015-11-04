@@ -22,19 +22,20 @@
   "license": "MIT",
   "readmeFilename": "README.md",
   "devDependencies": {
+    "immutable": "^3.7.5",
     "benchmark": "^1.0.0",
     "grunt": "^0.4.5",
-    "grunt-contrib-jshint": "^0.10.0",
-    "grunt-jsbeautifier": "^0.2.7",
-    "immutable": "^3.7.5",
+    "grunt-contrib-jshint": "^0.11.3",
+    "grunt-jsbeautifier": "^0.2.10",
     "mori": "^0.3.2",
-    "tap-spec": "^4.0.0",
-    "tape": "^4.0.0",
-    "zuul": "^3.0.0"
+    "tap-spec": "^4.1.0",
+    "tape": "^4.2.2",
+    "zuul": "^3.7.2"
   },
   "dependencies": {
     "define_property": "git://github.com/nathanfaucett/define_property.git",
     "immutable-map": "git://github.com/nathanfaucett/immutable-map.git",
+    "freeze": "git://github.com/nathanfaucett/freeze.git",
     "is_array_like": "git://github.com/nathanfaucett/is_array_like.git",
     "is_undefined": "git://github.com/nathanfaucett/is_undefined.git"
   }
