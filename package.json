@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "define_property": "git://github.com/nathanfaucett/define_property.git",
-    "immutable-map": "git://github.com/nathanfaucett/immutable-map.git",
+    "immutable-hash_map": "git://github.com/nathanfaucett/immutable-hash_map.git",
     "freeze": "git://github.com/nathanfaucett/freeze.git",
     "is_array_like": "git://github.com/nathanfaucett/is_array_like.git",
     "is_undefined": "git://github.com/nathanfaucett/is_undefined.git"

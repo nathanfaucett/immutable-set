@@ -1,5 +1,5 @@
 var freeze = require("freeze"),
-    ImmutableMap = require("immutable-map"),
+    ImmutableHashMap = require("immutable-hash_map"),
     isUndefined = require("is_undefined"),
     isArrayLike = require("is_array_like"),
     defineProperty = require("define_property");
@@ -23,7 +23,7 @@ function Set(value) {
         throw new Error("Set() must be called with new");
     }
 
-    this.__map = ImmutableMap.EMPTY;
+    this.__hashMap = ImmutableHashMap.EMPTY;
 
     if (value !== INTERNAL_CREATE) {
         return Set_createSet(this, value, arguments);
@@ -53,16 +53,16 @@ function Set_createSet(_this, value, values) {
 function Set_fromArray(_this, array) {
     var i = -1,
         il = array.length - 1,
-        map = _this.__map,
+        hashMap = _this.__hashMap,
         value;
 
     while (i++ < il) {
         value = array[i];
-        map = map.set(value, true);
+        hashMap = hashMap.set(value, true);
     }
 
-    if (map.size() !== 0) {
-        _this.__map = map;
+    if (hashMap.size() !== 0) {
+        _this.__hashMap = hashMap;
         return freeze(_this);
     } else {
         return EMPTY_SET;
@@ -89,7 +89,7 @@ defineProperty(SetPrototype, IS_SET, {
 });
 
 SetPrototype.size = function() {
-    return this.__map.size();
+    return this.__hashMap.size();
 };
 
 if (defineProperty.hasGettersSetters) {
@@ -101,15 +101,15 @@ if (defineProperty.hasGettersSetters) {
 SetPrototype.count = SetPrototype.size;
 
 SetPrototype.isEmpty = function() {
-    return this.__map.isEmpty();
+    return this.__hashMap.isEmpty();
 };
 
 SetPrototype.has = function(value) {
-    return this.__map.has(value);
+    return this.__hashMap.has(value);
 };
 
 SetPrototype.get = function(value) {
-    if (this.__map.has(value)) {
+    if (this.__hashMap.has(value)) {
         return value;
     } else {
         return undefined;
@@ -117,20 +117,20 @@ SetPrototype.get = function(value) {
 };
 
 function Set_set(_this, values) {
-    var map = _this.__map,
+    var hashMap = _this.__hashMap,
         i = -1,
         il = values.length - 1,
         added = 0,
-        newImmutableMap, set, value;
+        newImmutableHashMap, set, value;
 
     while (i++ < il) {
         value = values[i];
 
-        if (!map.has(value)) {
-            newImmutableMap = map.set(value, true);
+        if (!hashMap.has(value)) {
+            newImmutableHashMap = hashMap.set(value, true);
 
-            if (newImmutableMap !== map) {
-                map = newImmutableMap;
+            if (newImmutableHashMap !== hashMap) {
+                hashMap = newImmutableHashMap;
                 added += 1;
             }
         }
@@ -138,7 +138,7 @@ function Set_set(_this, values) {
 
     if (added !== 0) {
         set = new Set(INTERNAL_CREATE);
-        set.__map = map;
+        set.__hashMap = hashMap;
         return freeze(set);
     } else {
         return _this;
@@ -156,20 +156,20 @@ SetPrototype.set = function() {
 SetPrototype.conj = SetPrototype.cons = SetPrototype.add = SetPrototype.set;
 
 function Set_remove(_this, values) {
-    var map = _this.__map,
+    var hashMap = _this.__hashMap,
         i = -1,
         il = values.length - 1,
         removed = 0,
-        newImmutableMap, set, value;
+        newImmutableHashMap, set, value;
 
     while (i++ < il) {
         value = values[i];
 
-        if (map.has(value)) {
-            newImmutableMap = map.remove(value);
+        if (hashMap.has(value)) {
+            newImmutableHashMap = hashMap.remove(value);
 
-            if (newImmutableMap !== map) {
-                map = newImmutableMap;
+            if (newImmutableHashMap !== hashMap) {
+                hashMap = newImmutableHashMap;
                 removed += 1;
             }
         }
@@ -177,7 +177,7 @@ function Set_remove(_this, values) {
 
     if (removed !== 0) {
         set = new Set(INTERNAL_CREATE);
-        set.__map = map;
+        set.__hashMap = hashMap;
         return freeze(set);
     } else {
         return _this;
@@ -255,9 +255,9 @@ function SetIteratorValue(done, value) {
     this.value = value;
 }
 
-function SetIterator(mapIterator) {
+function SetIterator(hashMapIterator) {
     this.next = function next() {
-        var iteratorValue = mapIterator.next();
+        var iteratorValue = hashMapIterator.next();
 
         if (iteratorValue.done) {
             return new SetIteratorValue(true, undefined);
@@ -268,7 +268,7 @@ function SetIterator(mapIterator) {
 }
 
 SetPrototype.iterator = function(reverse) {
-    return new SetIterator(this.__map.iterator(reverse));
+    return new SetIterator(this.__hashMap.iterator(reverse));
 };
 
 if (ITERATOR_SYMBOL) {
@@ -431,7 +431,7 @@ SetPrototype.some = function(callback, thisArg) {
 };
 
 Set.equal = function(a, b) {
-    return ImmutableMap.equal(a.__map, b.__map);
+    return ImmutableHashMap.equal(a.__hashMap, b.__hashMap);
 };
 
 SetPrototype.equals = function(other) {
