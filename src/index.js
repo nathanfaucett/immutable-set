@@ -207,10 +207,12 @@ function Set_toArray(size, iterator) {
 }
 
 SetPrototype.toArray = function() {
-    if (this.size() === 0) {
+    var size = this.size();
+
+    if (size === 0) {
         return [];
     } else {
-        return Set_toArray(this.__size, this.iterator());
+        return Set_toArray(size, this.iterator());
     }
 };
 
@@ -240,7 +242,7 @@ SetPrototype.join = function(separator) {
     if (this.size() === 0) {
         return "";
     } else {
-        return Set_join(this.__size, this.iterator(), separator);
+        return Set_join(this.size(), this.iterator(), separator);
     }
 };
 
@@ -355,7 +357,7 @@ SetPrototype.eachRight = SetPrototype.forEachRight;
 
 function Set_map(_this, it, callback) {
     var next = it.next(),
-        results = new Array(_this.__size),
+        results = new Array(_this.size()),
         index = 0;
 
     while (next.done === false) {
