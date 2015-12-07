@@ -69,12 +69,16 @@ function Set_fromArray(_this, array) {
     }
 }
 
-Set.of = function(value) {
-    if (arguments.length > 0) {
-        return Set_createSet(new Set(INTERNAL_CREATE), value, arguments);
+Set.fromArray = function(array) {
+    if (array.length > 0) {
+        return Set_createSet(new Set(INTERNAL_CREATE), array[0], array);
     } else {
         return EMPTY_SET;
     }
+};
+
+Set.of = function() {
+    return Set.fromArray(arguments);
 };
 
 Set.isSet = function(value) {
