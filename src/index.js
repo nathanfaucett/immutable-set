@@ -10,7 +10,7 @@ var INTERNAL_CREATE = {},
     ITERATOR_SYMBOL = typeof(Symbol) === "function" ? Symbol.iterator : false,
     IS_SET = "__ImmutableSet__",
 
-    EMPTY_SET = new Set(INTERNAL_CREATE),
+    EMPTY_SET = freeze(new Set(INTERNAL_CREATE)),
 
     SetPrototype = Set.prototype;
 
@@ -32,7 +32,7 @@ function Set(value) {
     }
 }
 
-Set.EMPTY = freeze(EMPTY_SET);
+Set.EMPTY = EMPTY_SET;
 
 function Set_createSet(_this, value, values) {
     var length = values.length;
@@ -78,7 +78,7 @@ Set.fromArray = function(array) {
 };
 
 Set.of = function() {
-    return Set.fromArray(arguments);
+    return Set_createSet(new Set(INTERNAL_CREATE), arguments[0], arguments);
 };
 
 Set.isSet = function(value) {

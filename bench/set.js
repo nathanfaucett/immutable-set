@@ -8,26 +8,26 @@ var suite = new Benchmark.Suite();
 
 
 suite.add("immutable-set", function() {
-    var a = new Set(0, 1, 2, 3);
+    var a = new Set(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
 
     return function() {
-        a.set(4);
+        a.set(10);
     };
 }());
 
 suite.add("Immutable", function() {
-    var a = Immutable.Set.of([0, 1, 2, 3]);
+    var a = Immutable.Set.of([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
     return function() {
-        a.add(4);
+        a.add(10);
     };
 }());
 
 suite.add("mori set", function() {
-    var a = mori.hashMap(0, 0, 1, 1, 2, 2, 3, 3);
+    var a = mori.hashMap([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
     return function() {
-        mori.set(a, 4, 4);
+        mori.assoc(a, 10);
     };
 }());
 
