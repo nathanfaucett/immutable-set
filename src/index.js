@@ -1,4 +1,5 @@
 var freeze = require("freeze"),
+    Iterator = require("iterator"),
     ImmutableHashMap = require("immutable-hash_map"),
     isUndefined = require("is_undefined"),
     isArrayLike = require("is_array_like"),
@@ -11,6 +12,8 @@ var INTERNAL_CREATE = {},
     IS_SET = "__ImmutableSet__",
 
     EMPTY_SET = freeze(new Set(INTERNAL_CREATE)),
+
+    IteratorValue = Iterator.Value,
 
     SetPrototype = Set.prototype;
 
@@ -82,7 +85,7 @@ Set.of = function() {
 };
 
 Set.isSet = function(value) {
-    return value && value[IS_SET] === true;
+    return !!(value && value[IS_SET]);
 };
 
 defineProperty(SetPrototype, IS_SET, {
@@ -112,11 +115,11 @@ SetPrototype.has = function(value) {
     return this.__hashMap.has(value);
 };
 
-SetPrototype.get = function(value) {
+SetPrototype.get = function(value, notSetValue) {
     if (this.__hashMap.has(value)) {
         return value;
     } else {
-        return undefined;
+        return notSetValue;
     }
 };
 
@@ -256,25 +259,18 @@ SetPrototype.toString = function() {
 
 SetPrototype.inspect = SetPrototype.toString;
 
-function SetIteratorValue(done, value) {
-    this.done = done;
-    this.value = value;
-}
+SetPrototype.iterator = function(reverse) {
+    var hashMapIterator = this.__hashMap.iterator(reverse);
 
-function SetIterator(hashMapIterator) {
-    this.next = function next() {
+    return new Iterator(function next() {
         var iteratorValue = hashMapIterator.next();
 
         if (iteratorValue.done) {
-            return new SetIteratorValue(true, undefined);
+            return iteratorValue;
         } else {
-            return new SetIteratorValue(iteratorValue.done, iteratorValue.value[0]);
+            return new IteratorValue(iteratorValue.value[0], iteratorValue.done);
         }
-    };
-}
-
-SetPrototype.iterator = function(reverse) {
-    return new SetIterator(this.__hashMap.iterator(reverse));
+    });
 };
 
 if (ITERATOR_SYMBOL) {
