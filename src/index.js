@@ -1,9 +1,9 @@
-var freeze = require("freeze"),
-    Iterator = require("iterator"),
-    ImmutableHashMap = require("immutable-hash_map"),
-    isUndefined = require("is_undefined"),
-    isArrayLike = require("is_array_like"),
-    defineProperty = require("define_property");
+var freeze = require("@nathanfaucett/freeze"),
+    Iterator = require("@nathanfaucett/iterator"),
+    ImmutableHashMap = require("@nathanfaucett/immutable-hash_map"),
+    isUndefined = require("@nathanfaucett/is_undefined"),
+    isArrayLike = require("@nathanfaucett/is_array_like"),
+    defineProperty = require("@nathanfaucett/define_property");
 
 
 var INTERNAL_CREATE = {},

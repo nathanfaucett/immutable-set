@@ -5,12 +5,12 @@ immutable persistent set for the browser and node.js
 
 # Install
 ```bash
-$ npm install git://github.com/nathanfaucett/immutable-set --save
+$ npm install @nathanfaucett/immutable-set --save
 ```
 
 # Usage
 ```javascript
-var ImmutableSet = require("immutable-set");
+var ImmutableSet = require("@nathanfaucett/immutable-set");;
 
 
 var a = new ImmutableSet([0, 1]),
