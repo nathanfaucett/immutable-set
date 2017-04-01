@@ -9,7 +9,7 @@ var freeze = require("@nathanfaucett/freeze"),
 var INTERNAL_CREATE = {},
 
     ITERATOR_SYMBOL = typeof(Symbol) === "function" ? Symbol.iterator : false,
-    IS_SET = "__ImmutableSet__",
+    IS_SET = "_ImmutableSet_",
 
     EMPTY_SET = freeze(new Set(INTERNAL_CREATE)),
 
@@ -26,7 +26,7 @@ function Set(value) {
         throw new Error("Set() must be called with new");
     }
 
-    this.__hashMap = ImmutableHashMap.EMPTY;
+    this._hashMap = ImmutableHashMap.EMPTY;
 
     if (value !== INTERNAL_CREATE) {
         return Set_createSet(this, value, arguments);
@@ -56,7 +56,7 @@ function Set_createSet(_this, value, values) {
 function Set_fromArray(_this, array) {
     var i = -1,
         il = array.length - 1,
-        hashMap = _this.__hashMap,
+        hashMap = _this._hashMap,
         value;
 
     while (i++ < il) {
@@ -65,7 +65,7 @@ function Set_fromArray(_this, array) {
     }
 
     if (hashMap.size() !== 0) {
-        _this.__hashMap = hashMap;
+        _this._hashMap = hashMap;
         return freeze(_this);
     } else {
         return EMPTY_SET;
@@ -96,7 +96,7 @@ defineProperty(SetPrototype, IS_SET, {
 });
 
 SetPrototype.size = function() {
-    return this.__hashMap.size();
+    return this._hashMap.size();
 };
 
 if (defineProperty.hasGettersSetters) {
@@ -108,15 +108,15 @@ if (defineProperty.hasGettersSetters) {
 SetPrototype.count = SetPrototype.size;
 
 SetPrototype.isEmpty = function() {
-    return this.__hashMap.isEmpty();
+    return this._hashMap.isEmpty();
 };
 
 SetPrototype.has = function(value) {
-    return this.__hashMap.has(value);
+    return this._hashMap.has(value);
 };
 
 SetPrototype.get = function(value, notSetValue) {
-    if (this.__hashMap.has(value)) {
+    if (this._hashMap.has(value)) {
         return value;
     } else {
         return notSetValue;
@@ -124,7 +124,7 @@ SetPrototype.get = function(value, notSetValue) {
 };
 
 function Set_set(_this, values) {
-    var hashMap = _this.__hashMap,
+    var hashMap = _this._hashMap,
         i = -1,
         il = values.length - 1,
         added = 0,
@@ -145,7 +145,7 @@ function Set_set(_this, values) {
 
     if (added !== 0) {
         set = new Set(INTERNAL_CREATE);
-        set.__hashMap = hashMap;
+        set._hashMap = hashMap;
         return freeze(set);
     } else {
         return _this;
@@ -163,7 +163,7 @@ SetPrototype.set = function() {
 SetPrototype.conj = SetPrototype.cons = SetPrototype.add = SetPrototype.set;
 
 function Set_remove(_this, values) {
-    var hashMap = _this.__hashMap,
+    var hashMap = _this._hashMap,
         i = -1,
         il = values.length - 1,
         removed = 0,
@@ -184,7 +184,7 @@ function Set_remove(_this, values) {
 
     if (removed !== 0) {
         set = new Set(INTERNAL_CREATE);
-        set.__hashMap = hashMap;
+        set._hashMap = hashMap;
         return freeze(set);
     } else {
         return _this;
@@ -257,10 +257,13 @@ SetPrototype.toString = function() {
     return "#{" + this.join() + "}";
 };
 
+SetPrototype.toJSON = SetPrototype.toArray;
+Set.fromJSON = Set.fromArray;
+
 SetPrototype.inspect = SetPrototype.toString;
 
 SetPrototype.iterator = function(reverse) {
-    var hashMapIterator = this.__hashMap.iterator(reverse);
+    var hashMapIterator = this._hashMap.iterator(reverse);
 
     return new Iterator(function next() {
         var iteratorValue = hashMapIterator.next();
@@ -433,7 +436,7 @@ SetPrototype.some = function(callback, thisArg) {
 };
 
 Set.equal = function(a, b) {
-    return ImmutableHashMap.equal(a.__hashMap, b.__hashMap);
+    return ImmutableHashMap.equal(a._hashMap, b._hashMap);
 };
 
 SetPrototype.equals = function(other) {
