@@ -1,6 +1,6 @@
 {
   "name": "@nathanfaucett/immutable-set",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "immutable persistent set for the browser and node.js",
   "repository": {
     "type": "git",
@@ -36,7 +36,7 @@
   "dependencies": {
     "@nathanfaucett/define_property": "^0.0.3",
     "@nathanfaucett/freeze": "^0.0.1",
-    "@nathanfaucett/immutable-hash_map": "^0.0.2",
+    "@nathanfaucett/immutable-hash_map": "^0.0.5",
     "@nathanfaucett/is_array_like": "^0.0.2",
     "@nathanfaucett/is_undefined": "^0.0.1",
     "@nathanfaucett/iterator": "^0.0.2"

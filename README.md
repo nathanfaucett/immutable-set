@@ -1,14 +1,18 @@
-immutable Set
+Immutable Set
 =======
 
-immutable persistent set for the browser and node.js
+Immutable persistent set for the browser and node.js
 
-# Install
+# Install using npm
 ```bash
 $ npm install @nathanfaucett/immutable-set --save
 ```
+# Install using yarn
+```bash
+$ yarn add @nathanfaucett/immutable-set --save
+```
 
-# Usage
+# Example Usage
 ```javascript
 var ImmutableSet = require("@nathanfaucett/immutable-set");;
 
@@ -62,9 +66,6 @@ var a0 = a.set(2),
 #### iterator([reverse = false: Boolean]) -> Iterator
     returns Iterator
 
-#### every, filter, forEach, forEachRight, set, reduce, reduceRight, some
-    common Array methods
-
 #### toArray() -> Array<Any>
     returns Set elements in an Array
 
@@ -76,3 +77,6 @@ var a0 = a.set(2),
 
 #### equals(other: Set) -> Boolean
     compares this set to other set by values
+
+#### every, filter, forEach, forEachRight, set, reduce, reduceRight, some
+    common Array methods
