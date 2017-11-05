@@ -11,15 +11,21 @@ suite.add("Immutable", function() {
     var a = Immutable.Set.of([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
     return function() {
-        a.remove(0);
+        a.has(0);
+        a.has(5);
+        a.has(9);
+        a.has(10);
     };
 }());
 
 suite.add("mori set", function() {
-    var a = mori.set([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    var a = mori.hashMap([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
     return function() {
-        mori.disj(a, 0);
+        mori.hasKey(a, 0);
+        mori.hasKey(a, 5);
+        mori.hasKey(a, 9);
+        mori.hasKey(a, 10);
     };
 }());
 
@@ -27,7 +33,10 @@ suite.add("immutable-set", function() {
     var a = new Set(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
 
     return function() {
-        a.remove(0);
+        a.has(0);
+        a.has(5);
+        a.has(9);
+        a.has(10);
     };
 }());
 
@@ -40,5 +49,5 @@ suite.on("complete", function() {
     console.log("=========================================\n");
 });
 
-console.log("\n= remove ================================");
+console.log("\n= has ===================================");
 suite.run();

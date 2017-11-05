@@ -22,10 +22,6 @@ module.exports = Set;
 
 
 function Set(value) {
-    if (!(this instanceof Set)) {
-        throw new Error("Set() must be called with new");
-    }
-
     this._hashMap = ImmutableHashMap.EMPTY;
 
     if (value !== INTERNAL_CREATE) {
@@ -56,12 +52,10 @@ function Set_createSet(_this, value, values) {
 function Set_fromArray(_this, array) {
     var i = -1,
         il = array.length - 1,
-        hashMap = _this._hashMap,
-        value;
+        hashMap = _this._hashMap;
 
     while (i++ < il) {
-        value = array[i];
-        hashMap = hashMap.set(value, true);
+        hashMap = hashMap.set(array[i], true);
     }
 
     if (hashMap.size() !== 0) {
@@ -128,18 +122,14 @@ function Set_set(_this, values) {
         i = -1,
         il = values.length - 1,
         added = 0,
-        newImmutableHashMap, set, value;
+        newImmutableHashMap, set;
 
     while (i++ < il) {
-        value = values[i];
+        newImmutableHashMap = hashMap.set(values[i], true);
 
-        if (!hashMap.has(value)) {
-            newImmutableHashMap = hashMap.set(value, true);
-
-            if (newImmutableHashMap !== hashMap) {
-                hashMap = newImmutableHashMap;
-                added += 1;
-            }
+        if (newImmutableHashMap !== hashMap) {
+            hashMap = newImmutableHashMap;
+            added += 1;
         }
     }
 
@@ -167,18 +157,14 @@ function Set_remove(_this, values) {
         i = -1,
         il = values.length - 1,
         removed = 0,
-        newImmutableHashMap, set, value;
+        newImmutableHashMap, set;
 
     while (i++ < il) {
-        value = values[i];
+        newImmutableHashMap = hashMap.remove(values[i]);
 
-        if (hashMap.has(value)) {
-            newImmutableHashMap = hashMap.remove(value);
-
-            if (newImmutableHashMap !== hashMap) {
-                hashMap = newImmutableHashMap;
-                removed += 1;
-            }
+        if (newImmutableHashMap !== hashMap) {
+            hashMap = newImmutableHashMap;
+            removed += 1;
         }
     }
 

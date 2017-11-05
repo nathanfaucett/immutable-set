@@ -7,14 +7,6 @@ var Benchmark = require("benchmark"),
 var suite = new Benchmark.Suite();
 
 
-suite.add("immutable-set", function() {
-    var a = new Set(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
-
-    return function() {
-        a.set(10);
-    };
-}());
-
 suite.add("Immutable", function() {
     var a = Immutable.Set.of([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
@@ -28,6 +20,14 @@ suite.add("mori set", function() {
 
     return function() {
         mori.assoc(a, 10);
+    };
+}());
+
+suite.add("immutable-set", function() {
+    var a = new Set(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+
+    return function() {
+        a.set(10);
     };
 }());
 
